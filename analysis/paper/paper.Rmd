@@ -60,7 +60,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This is a replication of figure 2A from [@hirt2017]
+This is a replication of (Fig. \@ref(fig:fig2a)) from \[@hirt2017\].
 
 # Background
 
@@ -75,7 +75,7 @@ library(ggplot2)
 maxspeed <- readRDS("../data/derived_data/maxspeed.RDS")
 ```
 
-```{r fig2a}
+```{r fig2a, fig.cap="Replication of figure 2a from [@hirt2017]"}
 palette <- list(green = "#83CE3D",
                 orange = "#E39F2F",
                 blue = "#5F9FA1")

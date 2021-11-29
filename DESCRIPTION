@@ -1,9 +1,11 @@
 Package: maxspeed
-Title: What the Package Does (One Line, Title Case)
+Title: Comparison of animal body size and maximum speed
 Version: 0.0.0.9000
 Authors@R:
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Stevan", "Jeknic", , "sjeknic@stanford.edu", role = c("ctb"))
+Description: Maxspeed is based on the work published in Hirt et al. 2017.
+  It contains the data and analysis scripts required to reproduce the figures
+  in the paper, in particular, Fig 2a. It also includes citation information.
 License: MIT + file LICENSE
 ByteCompile: true
 Encoding: UTF-8

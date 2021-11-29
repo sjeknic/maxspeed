@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 # Please put your title here to include it in the file below.
-Title <- "Title of your paper goes here"
+Title <- "A general scaling law reveals why the largest animals are not the fastest"
 ```
 
 # maxspeed
@@ -20,11 +20,8 @@ Title <- "Title of your paper goes here"
 
 This repository contains the data and code for our paper:
 
-> Authors, (YYYY). _`r Title`_. Name of journal/book <https://doi.org/xxx/xxx>
+> Hirt, M., Jetz, W., Rall, B., Brose, U., (2017). _`r Title`_. Nature Ecology and Evolution <https://doi.org/10.1038/s41559-017-0241-4>
 
-Our pre-print is online here:
-
-> Authors, (YYYY). _`r Title`_. Name of journal/book, Accessed `r format(Sys.Date(), "%d %b %Y")`. Online at <https://doi.org/xxx/xxx>
 
 
 ### How to cite

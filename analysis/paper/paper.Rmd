@@ -40,8 +40,10 @@ Keywords: `r rmarkdown::metadata$keywords`
 Highlights: `r rmarkdown::metadata$highlights`
 
 <!-- The following code chunk defines some general settings how code chunks should behave. -->
-
-```{r setup, echo = FALSE}
+```{r setup, echo = FALSE, include=FALSE}
+devtools::document()
+devtools::build()
+devtools::load_all()
 knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
@@ -52,6 +54,7 @@ knitr::opts_chunk$set(
   dpi = 300
 )
 ```
+
 
 <!-- The actual document text starts here: -->
 
@@ -64,7 +67,73 @@ Here is a citation [@Marwick2017]
 # Methods
 
 # Results
+```{r load}
+library(maxspeed)
+library(dplyr)
+library(ggplot2)
+maxspeed <- readRDS("../data/derived_data/maxspeed.RDS")
+``` 
 
+```{r fig2a}
+palette <- list(green = "#83CE3D",
+                orange = "#E39F2F",
+                blue = "#5F9FA1")
+
+fly_dat <- filter(maxspeed, locomotion == "flying")
+fly_model <- fit_maxspeed(fly_dat)
+fly_spd <- tibble(
+  mass_kg = seq(min(fly_dat$mass_kg), max(fly_dat$mass_kg), length.out = 1000),
+  max_spd_kmh = predict_maxspeed(mass_kg, fly_model)
+)
+
+run_dat <- filter(maxspeed, locomotion == "running")
+run_model <- fit_maxspeed(run_dat)
+run_spd <- tibble(
+  mass_kg = seq(min(run_dat$mass_kg), max(run_dat$mass_kg), length.out = 1000),
+  max_spd_kmh = predict_maxspeed(mass_kg, run_model)
+)
+
+swm_dat <- filter(maxspeed, locomotion == "swimming")
+swm_model <- fit_maxspeed(swm_dat)
+swm_spd <- tibble(
+  mass_kg = seq(min(swm_dat$mass_kg), max(swm_dat$mass_kg), length.out = 1000),
+  max_spd_kmh = predict_maxspeed(mass_kg, swm_model)
+)
+
+ggplot(fly_dat, aes(x = mass_kg, y = max_spd_kmh)) +
+  geom_point(color = palette$green, size = 0.5, shape = 15) +
+  geom_point(data = run_dat, color = palette$orange, size = 0.5, shape = 16) +
+  geom_point(data = swm_dat, color = palette$blue, size = 0.5, shape = 17) +
+  geom_line(data = fly_spd, 
+            color = palette$green, 
+            size = 1.25) +
+  geom_line(data = fly_spd, 
+            color = "white", 
+            size = 0.5) +
+  geom_line(data = run_spd, 
+            color = palette$orange, 
+            size = 1.25) +
+  geom_line(data = run_spd, 
+            color = "white", 
+            size = 0.5) +
+  geom_line(data = swm_spd, 
+            color = palette$blue, 
+            size = 1.25) +
+  geom_line(data = swm_spd, 
+            color = "white", 
+            size = 0.5) +
+  scale_x_log10("Body mass (kg)",
+                limits = 10^c(-10, 7),
+                breaks = 10^c(-10, -6, -2, 1, 4, 7),
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+  scale_y_log10(bquote(Speed~(km~h^-1)),
+                limits = 10^c(-2, 3),
+                breaks = 10^(-2:3),
+                labels = c("0.01", "0.1", "1", "10", "100", "1,000")) +
+  annotation_logticks() +
+  theme_classic() +
+  theme(aspect.ratio = 1)
+```
 <!-- Here's some example analysis code: -->
 
 ```{r get-data, eval = FALSE}

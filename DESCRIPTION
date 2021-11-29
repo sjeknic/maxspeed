@@ -13,6 +13,7 @@ RoxygenNote: 7.1.2
 Imports: 
     bookdown,
     dplyr,
+    ggplot2,
     here,
     readxl
 Suggests: devtools,
